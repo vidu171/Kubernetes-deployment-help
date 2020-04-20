@@ -1,0 +1,28 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata: 
+  name: my-ingress
+  namespace: my-ns
+  annotations:
+    kubernetes.io/ingress.allow-http: "false"
+    ncp/http-redirect: "true" 
+spec:
+  rules:
+    - host: server.example.com
+      http:
+        paths:
+        - backend:
+            serviceName: server-service
+            servicePort: 3200
+    - host: database.example.com
+      http:
+        paths:
+        - backend:
+            serviceName: mysql-service
+            servicePort: 3306
+  tls:
+    -
+      hosts:
+        - database.example.com
+        - server.example.com
+      secretName: my-ns-tls-secret

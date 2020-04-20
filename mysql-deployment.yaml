@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+
+kind: Deployment
+
+metadata:
+  name: mysql-deployment
+  labels:
+    app: mysql-deployment
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql-pod
+
+  template:
+    metadata:
+      name: mysql-pod
+      labels:
+        app: mysql-pod
+
+    spec:
+      volumes:
+        - name: db-volume
+          nfs:
+            server: r2cdnas01d02.onefs.dell.com
+            path: /unbewodpvq1001937_5hxohznf/TrialProdDB
+      containers:
+        - name: mysql
+          image: centos/mysql-57-centos7
+          env:
+            - name: MYSQL_DATABASE
+              value: onboarding_db
+            - name: MYSQL_USER
+              value: user
+            - name: MYSQL_PASSWORD
+              value: pass
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - name: db-volume
+              mountPath: /var/lib/mysql/data
+          resources:
+            limits:
+              memory: "500Mi"
+              cpu: "200m"
+            requests:
+              memory: "300Mi"
+              cpu: "100m"
