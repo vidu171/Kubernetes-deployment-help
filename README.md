@@ -121,8 +121,8 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata: 
-  name: dscbot-ingress
-  namespace: dscbot-ns
+  name: my-ingress
+  namespace: my-ns
   annotations:            # annotations for https redirect
     kubernetes.io/ingress.allow-http: "false"
     ncp/http-redirect: "true"
