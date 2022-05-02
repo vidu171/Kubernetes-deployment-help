@@ -23,7 +23,7 @@ spec:
       volumes:
         - name: db-volume
           nfs:
-            server: r2cdnas01d02.onefs.dell.com
+            server: example.example.com
             path: /unbewodpvq1001937_5hxohznf/TrialProdDB
       containers:
         - name: mysql
